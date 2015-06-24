@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel test suite">
+  <test name="Firefox Test">
+  <groups> 
+    <run> 
+      <exclude name="brokenOnFirefox" />
+    </run> 
+  </groups>
+  <parameter name="browser" value="Firefox"/>
+    <classes>
+      <class name="portal.selenium.functional_tests.PayoffsTest"/>
+      <class name="portal.selenium.functional_tests.ManageTest"/>
+      <class name="portal.selenium.functional_tests.TriggersTest"/>
+    </classes>
+  </test>
+  <test name="Chrome Test">
+  <parameter name="browser" value="Chrome"/>
+    <classes>
+      <class name="portal.selenium.functional_tests.PayoffsTest"/>
+      <class name="portal.selenium.functional_tests.ManageTest"/>
+      <class name="portal.selenium.functional_tests.TriggersTest"/>
+    </classes>
+  </test>
+    <test name="Safari Test">
+    <parameter name="browser" value="Safari"/>
+    <classes>
+      <class name="portal.selenium.functional_tests.PayoffsTest"/>
+      <class name="portal.selenium.functional_tests.ManageTest"/>
+      <class name="portal.selenium.functional_tests.TriggersTest"/>
+    </classes>
+  </test>
+</suite>
