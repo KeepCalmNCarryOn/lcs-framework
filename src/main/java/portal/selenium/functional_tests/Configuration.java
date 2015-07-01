@@ -29,7 +29,7 @@ public class Configuration {
 	private static final String MANAGE_URL_KEY = "manage";
 	private static final String TRIGGERS_URL_KEY = "triggers";
 	private static final String PAYOFFS_URL_KEY = "payoffs";
-    private static final String LOGIN_URL_KEY = "login";
+    private static final String SIGNIN_URL_KEY = "login";
     private static final String USERNAME_KEY = "username";
     private static final String PASSWORD_KEY = "password";
     private static final String URL_LIST_KEY = "urls"; 
