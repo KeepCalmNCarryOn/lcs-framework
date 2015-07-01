@@ -16,7 +16,8 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 /** 
- * This class provides details of the test environment. 
+ * This class provides details of the test environment.  
+ * Sets the URLs for each of the pages in the portal. 
  * @author Tonisha Whyte
  *
  */
@@ -85,14 +86,20 @@ public class Configuration {
 		  this.username = (String)portalStack.get(USERNAME_KEY);
 		  this.password = (String)portalStack.get(PASSWORD_KEY);
 		  this.urls = (Map<String, String>)portalStack.get(URL_LIST_KEY);
+ 
+		  // tell each page in the portal its url
+		  HomePage.URL = getHomeURL();
+		  SignInPage.URL = getSignInURL();
+		  ManagePage.URL = getManageURL();
+		  
 	}
 	
 	public String getHomeURL(){
 		return (String)urls.get(HOME_URL_KEY);
 	}
 
-	public String getLoginURL(){
-		return (String)urls.get(LOGIN_URL_KEY);
+	public String getSignInURL(){
+		return (String)urls.get(SIGNIN_URL_KEY);
 	}
 
 	public String getManageURL() {

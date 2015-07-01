@@ -12,19 +12,26 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * This page object represents the manage page for the portal. 
- * @author twhyte
+ * @author Tonisha Whyte	
  *
  */
 public class ManagePage extends Page {
-  public ManagePage (WebDriver driver){
-	  super(driver);
-  }
+	static String URL;
+
+	public ManagePage (){
+		String currentLocation = Page.DRIVER.getCurrentUrl();
+		if (!currentLocation.startsWith(URL)){
+			throw new IllegalStateException("This is not the manage page, current page is: " 
+					+ currentLocation); 
+		}
+	}
   
-  @Override
-  public ManagePage open() {
-	  DRIVER.get(CONFIG.getManageURL());
-	  return this;
-  }
+	/**
+	 * Open the manage page.
+	 */
+	public static void open() {
+		DRIVER.get(CONFIG.getManageURL());
+	}
   
   /**
    * Locators
