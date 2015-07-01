@@ -73,6 +73,46 @@ public abstract class Page {
     			retries--;
     		}
     	}
-
     }
+
+    /**
+     * Select the sign in link on top of the navigation bar.  
+     * @return The sign in page. 
+     */
+    public SignInPage signInFromNavigationBar() {
+  	  new WebDriverWait (DRIVER, 5)
+  	  .until (ExpectedConditions.presenceOfElementLocated(navigationBarSignInLinkLocator))
+  	  .click();
+  	
+  	  new WebDriverWait (DRIVER, 5).until(
+  			  ExpectedConditions.stalenessOf(DRIVER.findElement(navigationBarSignInLinkLocator)));
+  	 
+        return new SignInPage();  
+    }
+
+  /**
+   * Determine whether or not the sign out drop down menu is present on the page. 
+   * @return Whether the drop down menu is displayed.
+   */
+  public boolean isTheSignOutOptionAvailable(){
+	  return isElementDisplayed(signOutDropDownMenuLocator);
+  }
+  
+  /**
+   * Click the sign out button on the navigation bar. 
+   */
+  public void signOut(){
+     
+	  // click on the sign in/out drop down menu
+  	  new WebDriverWait (DRIVER, 5)
+  	  .until (ExpectedConditions.presenceOfElementLocated(signOutDropDownMenuLocator))
+  	  .click();
+  	  
+  	  // click on the sign out link
+  	  DRIVER.findElement(signOutLinkLocator).click();
+  	  
+  	  // wait for sign out to complete
+  	  new WebDriverWait (DRIVER, 5).until(
+  			  ExpectedConditions.visibilityOfElementLocated(navigationBarSignInLinkLocator));
+  }
 }

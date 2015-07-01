@@ -39,9 +39,9 @@ public class TriggersTest {
 		    SimpleDateFormat df = new SimpleDateFormat("MMM d,yyyy");
 
 		    // sign in
-		    LoginPage login = new LoginPage(driver);
+		    SignInPage login = new SignInPage(driver);
 	        login.open()
-	        .enterCredentials()
+	        .enterDefaultCredentials()
 	        .submitLogin(new HomePage(driver));
 
 	        // go to triggers page

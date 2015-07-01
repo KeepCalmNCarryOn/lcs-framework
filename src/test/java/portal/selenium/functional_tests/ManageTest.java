@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import portal.selenium.functional_tests.Configuration.Stack;
 
 /** 
- * Test for the manage tab.
+ * Test the manage tab.
  * @author Tonisha Whyte
  *
  */
@@ -25,7 +25,6 @@ public class ManageTest {
     @Parameters ({ "browser" })
     @BeforeClass
 	public void setup(String browser) {
-//		driver = new ChromeDriver();
         config = new Configuration(Stack.DEV);
         driver = config.getDriver(browser);
 	}
@@ -36,15 +35,14 @@ public class ManageTest {
 	}
 
   @Test
-  public void manage_displaysValidCreateDates() {
+  public void manage_page_displaysValidCreateDates() {
 	    SimpleDateFormat df = new SimpleDateFormat("MMM d,yyyy");
 
 	    // sign in
-	    LoginPage login = new LoginPage(driver);
-        HomePage home = (HomePage)login.open()
-        .enterCredentials()
-        .submitLogin(new HomePage(driver));
-        Assert.assertTrue(home.isUserSignedIn());
+	    ManagePage.open();
+	    ManagePage manage = new ManagePage();
+	    manage.signInFromNavigationBar().enterDefaultCredentials()
+        .submitLoginFromManage();
         
         // go to manage page
         ManagePage manage = new ManagePage(driver).open();

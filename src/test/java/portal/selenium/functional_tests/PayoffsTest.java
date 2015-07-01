@@ -47,9 +47,9 @@ public class PayoffsTest {
 		SimpleDateFormat df = new SimpleDateFormat("MMM d,yyyy");
 
 		// verify that sign in succeeds
-		LoginPage login = new LoginPage(driver);
+		SignInPage login = new SignInPage(driver);
 		login.open()
-		.enterCredentials()
+		.enterDefaultCredentials()
 		.submitLogin(new HomePage(driver));
 		
 
