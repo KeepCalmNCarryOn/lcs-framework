@@ -91,6 +91,8 @@ public class Configuration {
 		  HomePage.URL = getHomeURL();
 		  SignInPage.URL = getSignInURL();
 		  ManagePage.URL = getManageURL();
+		  PayoffsPage.URL = getPayoffsURL();
+		  TriggersPage.URL = getTriggersURL();
 		  
 	}
 	
