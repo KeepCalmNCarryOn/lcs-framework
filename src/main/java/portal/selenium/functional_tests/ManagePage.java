@@ -18,8 +18,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ManagePage extends Page {
 	static String URL;
 
+	/**
+	 * Check that the manage page is open.
+	 */
 	public ManagePage (){
-		String currentLocation = Page.DRIVER.getCurrentUrl();
+		String currentLocation = DRIVER.getCurrentUrl();
 		if (!currentLocation.startsWith(URL)){
 			throw new IllegalStateException("This is not the manage page, current page is: " 
 					+ currentLocation); 

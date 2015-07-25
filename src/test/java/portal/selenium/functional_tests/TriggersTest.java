@@ -19,37 +19,32 @@ import portal.selenium.functional_tests.Configuration.Stack;
  *
  */
 public class TriggersTest {
-	  WebDriver driver;
 	  protected Configuration config;
 	  
         @Parameters ({ "browser" })
 		@BeforeClass
 		public void setup(String browser) {
-		//	driver = new ChromeDriver();
-	        config = new Configuration(Stack.DEV);
-            driver = config.getDriver(browser);
-		}
+        	Page.configure(new Configuration(Stack.DEV), browser);
+        }
 
         @AfterClass
         public void cleanUp() {
-    		driver.quit();
-    	}
+        	Page.DRIVER.quit();
+        }
+
 	  @Test
-	  public void triggers_displaysValidCreateDates() {
+	  public void list_valid_create_dates_in_triggers_view() {
 		    SimpleDateFormat df = new SimpleDateFormat("MMM d,yyyy");
 
 		    // sign in
-		    SignInPage login = new SignInPage(driver);
-	        login.open()
-	        .enterDefaultCredentials()
-	        .submitLogin(new HomePage(driver));
+		    TriggersPage.open();
+	        TriggersPage triggers = new TriggersPage().signInFromNavigationBar()
+	        		.enterDefaultCredentials().submitLoginFromTriggers();
 
-	        // go to triggers page
-	        TriggersPage triggers = new TriggersPage(driver).open();
 	        boolean moreDatesToValidate = true;
 
 	        // check all creation dates 
-	        do{
+	        while (moreDatesToValidate){
 	        	List<String> creationDates = triggers.getCreateDates();
 
 	        	for (String date : creationDates){
@@ -65,6 +60,6 @@ public class TriggersTest {
 	        	} else {
 	        		moreDatesToValidate = false;
 	        	}
-	        } while (moreDatesToValidate);
+	        } 
 	  }
 }

@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 import portal.selenium.functional_tests.Configuration.Stack;
 
 /**
- * Tests for the payoff view.   
+ * Tests for the payoff page.   
  * @author Tonisha Whyte
  *
  */
@@ -27,12 +27,9 @@ public class PayoffsTest {
 
     @Parameters ({ "browser" })
 	@BeforeClass
-//	public void setup() {
 	public void setup(String browser) {
 		config = new Configuration(Stack.DEV);
 		driver = config.getDriver(browser);
-//		driver = config.getDriver("safari");
-
 	}
 
 	@AfterClass
@@ -46,15 +43,11 @@ public class PayoffsTest {
 	public void payoffs_displaysValidCreateDates() {
 		SimpleDateFormat df = new SimpleDateFormat("MMM d,yyyy");
 
-		// verify that sign in succeeds
-		SignInPage login = new SignInPage(driver);
-		login.open()
-		.enterDefaultCredentials()
-		.submitLogin(new HomePage(driver));
-		
+		// sign in on the payoffs page
+		PayoffsPage.open();
+		PayoffsPage payoffs = new PayoffsPage();
+		payoffs.signInFromNavigationBar().enterDefaultCredentials().submitLoginFromPayoffs();
 
-		// go to payoffs page
-		PayoffsPage payoffs = new PayoffsPage(driver).open();
 		boolean moreDatesToValidate = true;
 
 		// check all creation dates 

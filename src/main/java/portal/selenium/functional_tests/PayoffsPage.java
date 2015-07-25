@@ -16,20 +16,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  */
 public class PayoffsPage extends Page {
+	static String URL;
 
 	/**
-	 * Creates a page object for the triggers page.  Use the {@link #open()} method
-	 * to navigate to the page. 
-	 * @param driver
+	 * Check that the payoffs page is open.
 	 */
-	public PayoffsPage (WebDriver driver) {
-		super(driver);
+	public PayoffsPage () {
+		String currentLocation = Page.DRIVER.getCurrentUrl();
+		if (!currentLocation.startsWith(URL)){
+			throw new IllegalStateException("This is not the payoffs page, current page is: " 
+					+ currentLocation); 
+		}
 	}
 
-	@Override
-	public PayoffsPage open() {
+	/**
+	 * Open the payoffs page.
+	 */
+	public static void open() {
 		DRIVER.get(CONFIG.getPayoffsURL());
-		return this;
 	}
 
 	By emptyListLocator = By.id("empty-payoff-list");

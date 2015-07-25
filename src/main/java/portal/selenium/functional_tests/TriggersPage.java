@@ -16,22 +16,29 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  *
  */
 public class TriggersPage extends Page {
+     static String URL;
 
 	/**
-	 * Creates a page object for the triggers page.  Use the {@link #open()} method
-	 * to navigate to the page. 
-	 * @param driver
+	 * Check that the triggers page is open.
 	 */
-	public TriggersPage (WebDriver driver) {
-		super(driver);
+	public TriggersPage () {
+		String currentLocation = DRIVER.getCurrentUrl();
+		if (!currentLocation.startsWith(URL)){
+			throw new IllegalStateException("This is not the triggers page, current page is: " 
+					+ currentLocation); 
+		}
 	}
 
-	@Override
-	public TriggersPage open() {
+	/** 
+	 * Open the triggers page. 
+	 */
+	public static void open() {
 		DRIVER.get(CONFIG.getTriggersURL());
-		return this;
 	}
 
+	/**
+	 * LOCATORS
+	 */
 	By emptyListLocator = By.id("empty-trigger-list");
 
 	By linkCreateDateLocator = By

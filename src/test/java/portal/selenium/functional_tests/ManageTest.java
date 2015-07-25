@@ -38,14 +38,12 @@ public class ManageTest {
   public void manage_page_displaysValidCreateDates() {
 	    SimpleDateFormat df = new SimpleDateFormat("MMM d,yyyy");
 
-	    // sign in
+	    // sign in from the manage page
 	    ManagePage.open();
 	    ManagePage manage = new ManagePage();
 	    manage.signInFromNavigationBar().enterDefaultCredentials()
         .submitLoginFromManage();
         
-        // go to manage page
-        ManagePage manage = new ManagePage(driver).open();
         boolean moreDatesToValidate = true;
 
         // check all creation dates match the appropriate format 
