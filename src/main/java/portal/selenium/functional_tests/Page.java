@@ -56,23 +56,32 @@ public abstract class Page {
     }
     
     /** 
-     * Click an element on the page after waiting for it to load. 
-     * @param locator
+     * Click an element on the page after waiting for the element to become visible and enabled. 
+     * @param locator locator for the element on the page.
      */
     protected void click(By locator) {
-    	WebElement element = new WebDriverWait(DRIVER, 10)
-    	.until(ExpectedConditions.presenceOfElementLocated(locator));
-        int retries = 5; 
-    	
-        // TODO:  Find a better way to wait for an element that isn't ready to be clicked. 
-    	while (retries > 0){
-    		try{
-    		    element.click();
-    		    break;
-    		}catch (WebDriverException e) {
-    			retries--;
-    		}
-    	}
+    	int waitTime = 10;
+    	WebElement element = new WebDriverWait(DRIVER, waitTime)
+    	.until(ExpectedConditions.visibilityOfElementLocated(locator));
+
+ 	    element.click();
+    }
+    
+    /** 
+     * Click an element on the page and then wait for loading to complete. 
+     * @param target locator for the element on the page.
+     * @param staleElement locator for the element you expect to be stale when loading completes.
+     * 
+     */
+    protected void clickThenWait(By target, By staleElement) {
+    	int waitTime = 10;
+    	WebElement element = new WebDriverWait(DRIVER, waitTime)
+    	.until(ExpectedConditions.elementToBeClickable(target));
+
+ 	    element.click();
+ 	     
+ 	    new WebDriverWait(DRIVER, waitTime)
+ 	    .until(ExpectedConditions.invisibilityOfElementLocated(staleElement));
     }
 
     /**

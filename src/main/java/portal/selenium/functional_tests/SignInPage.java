@@ -64,7 +64,7 @@ public class SignInPage extends Page{
 	}
 
 	/** 
-	 * Enter a valid user name and password for the stack set up in the configuration.
+	 * Enters a valid user name and password for the stack set up in the configuration.
 	 * @return The sign in page.
 	 */
 	public SignInPage enterDefaultCredentials () {
@@ -83,7 +83,7 @@ public class SignInPage extends Page{
 	 * @return The home page. 
 	 */
 	public HomePage submitLoginFromHome() {
-		submitLogin();
+		click(signInSubmitButtonLocator);
 		return new HomePage();
 	}
 
@@ -92,28 +92,35 @@ public class SignInPage extends Page{
 	 * @return The manage page. 
 	 */
 	public ManagePage submitLoginFromManage() {
-		submitLogin();
+		click(signInSubmitButtonLocator);
 		return new ManagePage();
 	}
 	
 	/**
-	 * Click the submit button to log in.
+	 * Allows the user to log in from the triggers page using the link in the navigation bar.   
+	 * @return The triggers page. 
 	 */
-	private void submitLogin() {
-		new WebDriverWait (DRIVER, 5)
-		.until (ExpectedConditions.presenceOfElementLocated(signInSubmitButtonLocator))
-		.click();
+	public TriggersPage submitLoginFromTriggers() {
+		clickThenWait(signInSubmitButtonLocator, signInSubmitButtonLocator);
+		return new TriggersPage();
 	}
-
+	
+	/**
+	 * Allows the user to log in from the payoffs page using the link in the navigation bar.   
+	 * @return The payoffs page. 
+	 */
+	public PayoffsPage submitLoginFromPayoffs() {
+		click(signInSubmitButtonLocator);
+		return new PayoffsPage();
+	}
+	
 	/**
 	 * Allows the user to attempt to log in but expects that the login process will fail. 
 	 * @param initiator
 	 * @return The login page.
 	 */
 	public SignInPage submitUnsuccessfulLogin() {
-		new WebDriverWait (DRIVER, 5)
-		.until (ExpectedConditions.presenceOfElementLocated(signInSubmitButtonLocator))
-		.click();
+		click(signInSubmitButtonLocator);
 		return this;
 	}
 	

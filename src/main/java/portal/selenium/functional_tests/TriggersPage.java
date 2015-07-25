@@ -48,6 +48,8 @@ public class TriggersPage extends Page {
 	By nextArrowDisabledLocator = By.cssSelector("ul.pager li.disabled i.fa-caret-right");
 
 	By pageTitleLocator = By.partialLinkText("Triggers");
+	
+    By dialogShadowLocator = By.cssSelector(".dialog, .shadow"); // the shadow that appears between loading lists of links 	
 
 	/**
 	 * Get the list of displayed creation dates
@@ -96,7 +98,7 @@ public class TriggersPage extends Page {
 	 * @return The manage page.
 	 */
 	public TriggersPage next(){
-		click(nextArrowLocator);
+		clickThenWait(nextArrowLocator, dialogShadowLocator);
 		return this;
 	}
 
