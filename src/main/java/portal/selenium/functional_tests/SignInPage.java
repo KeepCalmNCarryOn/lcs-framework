@@ -83,7 +83,7 @@ public class SignInPage extends Page{
 	 * @return The home page. 
 	 */
 	public HomePage submitLoginFromHome() {
-		click(signInSubmitButtonLocator);
+		clickThenWait(signInSubmitButtonLocator, signInSubmitButtonLocator);
 		return new HomePage();
 	}
 
@@ -92,7 +92,7 @@ public class SignInPage extends Page{
 	 * @return The manage page. 
 	 */
 	public ManagePage submitLoginFromManage() {
-		click(signInSubmitButtonLocator);
+		clickThenWait(signInSubmitButtonLocator, signInSubmitButtonLocator);
 		return new ManagePage();
 	}
 	
@@ -110,7 +110,7 @@ public class SignInPage extends Page{
 	 * @return The payoffs page. 
 	 */
 	public PayoffsPage submitLoginFromPayoffs() {
-		click(signInSubmitButtonLocator);
+		clickThenWait(signInSubmitButtonLocator, signInSubmitButtonLocator);
 		return new PayoffsPage();
 	}
 	

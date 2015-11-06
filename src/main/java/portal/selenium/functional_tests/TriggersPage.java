@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * This page object represents the triggers page for the portal.
- * @author twhyte
+ * @author Tonisha Whyte 
  *
  */
 public class TriggersPage extends Page {
@@ -48,8 +48,6 @@ public class TriggersPage extends Page {
 	By nextArrowDisabledLocator = By.cssSelector("ul.pager li.disabled i.fa-caret-right");
 
 	By pageTitleLocator = By.partialLinkText("Triggers");
-	
-    By dialogShadowLocator = By.cssSelector(".dialog, .shadow"); // the shadow that appears between loading lists of links 	
 
 	/**
 	 * Get the list of displayed creation dates

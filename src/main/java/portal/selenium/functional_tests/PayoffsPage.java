@@ -93,7 +93,7 @@ public class PayoffsPage extends Page {
 	 * @return The manage page.
 	 */
 	public PayoffsPage next(){
-		click(nextArrowLocator);
+		clickThenWait(nextArrowLocator, dialogShadowLocator);
 		return this;
 	}
 

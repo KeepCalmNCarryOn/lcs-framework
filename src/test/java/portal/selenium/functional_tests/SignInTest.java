@@ -5,8 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -24,7 +22,8 @@ public class SignInTest {
     @Parameters ({ "browser" })
     @BeforeClass
 	public void setup(String browser) {
-        Page.configure(new Configuration(Stack.DEV), browser);
+    	config = new Configuration(Stack.DEV);
+        Page.configure(config, browser);
 	}
 	
 	@AfterClass
@@ -43,25 +42,27 @@ public class SignInTest {
 	}
 
 	@Test
-	public void logInSuccessfully_fromSignInOnHomePageNavigationBar() {
+	public void logInSuccessfully_fromSignInButtonOnHomePageNavigationBar() {
 	    HomePage.open();	
-	    HomePage resultPage = new HomePage().signInFromNavigationBar()
+	    HomePage resultPage = new HomePage().selectSignInButtonFromNavBar()
 	    		.enterDefaultCredentials().submitLoginFromHome();
 
 	    // verify the user is signed in
 	    Assert.assertTrue(resultPage.isTheSignOutOptionAvailable());
 	   
 	    // verify the username shown is the correct one
-	    //Assert.assertEquals(actual, expected);
+	    String username = resultPage.selectPersonIconFromNavBar().getUsernameFromDropDown();
+	    Assert.assertEquals(username, config.getUsername());
 	}
 
 	@Test
-	public void logInSuccessfully_fromSignInOnManagePageNavigationBar() {
+	public void logInSuccessfully_whenUserNavigatesDirectlyToMyLinks() {
 	    ManagePage.open();	
-	    ManagePage resultPage = new ManagePage().signInFromNavigationBar()
+	    ManagePage resultPage = new ManagePage().selectSignInButtonFromNavBar()
 	    		.enterDefaultCredentials().submitLoginFromManage();
 
 	    // verify the user is signed in
         Assert.assertTrue(resultPage.isTheSignOutOptionAvailable());
 	}
+
 }

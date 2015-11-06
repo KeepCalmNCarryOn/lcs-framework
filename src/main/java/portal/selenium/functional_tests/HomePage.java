@@ -49,4 +49,15 @@ public class HomePage extends Page{
 	 return new SignInPage(); 
   }
 
+  /**
+   * Open the sign out drop down menu. 
+   * @return The sign in page.
+   */
+  public HomePage selectPersonIconFromNavBar() {
+  	new WebDriverWait (DRIVER, 5)
+  	.until(ExpectedConditions.presenceOfElementLocated(signOutDropDownMenuLocator))
+  	.click();
+  	
+  	return this;
+  }
 }

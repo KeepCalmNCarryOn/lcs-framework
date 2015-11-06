@@ -22,36 +22,33 @@ import portal.selenium.functional_tests.Configuration.Stack;
  *
  */
 public class PayoffsTest {
-	WebDriver driver;
-	protected Configuration config;
 
     @Parameters ({ "browser" })
 	@BeforeClass
 	public void setup(String browser) {
-		config = new Configuration(Stack.DEV);
-		driver = config.getDriver(browser);
+    	Page.configure(new Configuration(Stack.DEV), browser);
 	}
 
 	@AfterClass
 	public void tearDown(){
-		driver.quit();
+		Page.DRIVER.quit();
 	}
 
     // TODO Create a defect:  Unresponsive script https://d3lxp2916bkdsd.cloudfront.net/dev/shared.js:2 on Firefox. 
     // This could be a problem with Selenium.
 	@Test(groups = {"brokenOnFirefox"})
-	public void payoffs_displaysValidCreateDates() {
+	public void valid_create_dates_in_payoffs_view() {
 		SimpleDateFormat df = new SimpleDateFormat("MMM d,yyyy");
 
 		// sign in on the payoffs page
 		PayoffsPage.open();
-		PayoffsPage payoffs = new PayoffsPage();
-		payoffs.signInFromNavigationBar().enterDefaultCredentials().submitLoginFromPayoffs();
+		PayoffsPage payoffs = new PayoffsPage().selectSignInButtonFromNavBar()
+				.enterDefaultCredentials().submitLoginFromPayoffs();
 
 		boolean moreDatesToValidate = true;
 
 		// check all creation dates 
-		do{
+		while (moreDatesToValidate){
 			List<String> creationDates = payoffs.getCreateDates();
 
 			for (String date : creationDates){
@@ -67,6 +64,6 @@ public class PayoffsTest {
 			} else {
 				moreDatesToValidate = false;
 			}
-		} while (moreDatesToValidate);
+		}
 	}
 }

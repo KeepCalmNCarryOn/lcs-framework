@@ -1,8 +1,15 @@
 package portal.selenium.functional_tests;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -10,6 +17,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import portal.selenium.functional_tests.Configuration.Stack;
 
@@ -36,9 +44,12 @@ public abstract class Page {
      * LOCATORS
      */
     By navigationBarSignInLinkLocator = By.id("signInLink");
-    By signOutDropDownMenuLocator = By.id("dropdownMenu1");
-    By signOutLinkLocator = By.cssSelector("ul.dropdown-menu li a");
+    By signOutDropDownMenuLocator = By.id("dropdownMenuSignIn");
+    By signOutLinkLocator = By.id("signOutLink");
     By createAccountLocator = By.id("signUpButton");
+   
+    By dialogShadowLocator = By.cssSelector(".dialog, .shadow"); // the shadow that appears between loading lists of links 	
+    By usernameLocator = By.cssSelector("ul[aria-labelledby='dropdownMenuSignIn'] li:nth-of-type(1)");
 
     /**
      * Find out whether an element is displayed.
@@ -79,7 +90,6 @@ public abstract class Page {
     	.until(ExpectedConditions.elementToBeClickable(target));
 
  	    element.click();
- 	     
  	    new WebDriverWait(DRIVER, waitTime)
  	    .until(ExpectedConditions.invisibilityOfElementLocated(staleElement));
     }
@@ -88,7 +98,7 @@ public abstract class Page {
      * Select the sign in link on top of the navigation bar.  
      * @return The sign in page. 
      */
-    public SignInPage signInFromNavigationBar() {
+    public SignInPage selectSignInButtonFromNavBar() {
   	  new WebDriverWait (DRIVER, 5)
   	  .until (ExpectedConditions.presenceOfElementLocated(navigationBarSignInLinkLocator))
   	  .click();
@@ -98,15 +108,27 @@ public abstract class Page {
   	 
         return new SignInPage();  
     }
+    
 
-  /**
-   * Determine whether or not the sign out drop down menu is present on the page. 
-   * @return Whether the drop down menu is displayed.
-   */
-  public boolean isTheSignOutOptionAvailable(){
-	  return isElementDisplayed(signOutDropDownMenuLocator);
-  }
-  
+    
+    /**
+     * Return the username listed in the sign out dropdown menu. 
+     * @return username 
+     */
+    public String getUsernameFromDropDown(){
+    	String username = new WebDriverWait (DRIVER, 5).until(
+    			ExpectedConditions.presenceOfElementLocated(usernameLocator)).getText();
+    	return username;
+    }
+
+    /**
+     * Determine whether or not the sign out drop down menu is present on the page. 
+     * @return Whether the drop down menu is displayed.
+     */
+    public boolean isTheSignOutOptionAvailable(){
+    	return isElementDisplayed(signOutDropDownMenuLocator);
+    }
+
   /**
    * Click the sign out button on the navigation bar. 
    */

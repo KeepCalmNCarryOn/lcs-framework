@@ -23,7 +23,7 @@ public class ManagePage extends Page {
 	 */
 	public ManagePage (){
 		String currentLocation = DRIVER.getCurrentUrl();
-		if (!currentLocation.startsWith(URL)){
+		if (!currentLocation.endsWith("links")){
 			throw new IllegalStateException("This is not the manage page, current page is: " 
 					+ currentLocation); 
 		}
@@ -96,7 +96,7 @@ public class ManagePage extends Page {
    * @return The manage page.
    */
   public ManagePage next(){
-     click(nextArrowLocator);
+     clickThenWait(nextArrowLocator, dialogShadowLocator);
 	 return this;
   }
   

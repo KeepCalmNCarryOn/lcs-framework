@@ -19,19 +19,16 @@ import portal.selenium.functional_tests.Configuration.Stack;
  *
  */
 public class ManageTest {
-	WebDriver driver;
-    protected Configuration config;
 
     @Parameters ({ "browser" })
     @BeforeClass
 	public void setup(String browser) {
-        config = new Configuration(Stack.DEV);
-        driver = config.getDriver(browser);
+    	Page.configure(new Configuration(Stack.DEV), browser);
 	}
 	
 	@AfterClass
 	public void cleanUp() {
-		driver.quit();
+		Page.DRIVER.quit();
 	}
 
   @Test
@@ -41,7 +38,7 @@ public class ManageTest {
 	    // sign in from the manage page
 	    ManagePage.open();
 	    ManagePage manage = new ManagePage();
-	    manage.signInFromNavigationBar().enterDefaultCredentials()
+	    manage.selectSignInButtonFromNavBar().enterDefaultCredentials()
         .submitLoginFromManage();
         
         boolean moreDatesToValidate = true;

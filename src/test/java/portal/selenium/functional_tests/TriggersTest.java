@@ -38,7 +38,7 @@ public class TriggersTest {
 
 		    // sign in
 		    TriggersPage.open();
-	        TriggersPage triggers = new TriggersPage().signInFromNavigationBar()
+	        TriggersPage triggers = new TriggersPage().selectSignInButtonFromNavBar()
 	        		.enterDefaultCredentials().submitLoginFromTriggers();
 
 	        boolean moreDatesToValidate = true;
