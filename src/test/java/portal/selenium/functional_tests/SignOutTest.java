@@ -27,6 +27,6 @@ public class SignOutTest {
 	@BeforeMethod
 	public void signIn() {
 		SignInPage.open();
-		SignInPage page = new SignInPage().enterDefaultCredentials().
+		SignInPage page = new SignInPage().enterDefaultCredentials();
 	}
 }
